@@ -1,0 +1,171 @@
+%%%%%%%%%%%%%%%
+% This CV example/template is based on my own
+% CV which I (lamely attempted) to clean up, so that
+% it's less of an eyesore and easier for others to use.
+%
+% LianTze Lim (liantze@gmail.com)
+% 23 Oct, 2022
+%
+\documentclass[a4paper,11pt,english]{curve}
+\usepackage[super]{nth}
+% Uncomment to enable Chinese; needs XeLaTeX
+% \usepackage{ctex}
+
+
+% Default biblatex style used for the publication list is APA6. If you wish to use a different style or pass other options to biblatex you can change them here. 
+\PassOptionsToPackage{style=apa,sorting=ydnt,defernumbers=true, uniquelist=true}{biblatex}
+
+% Most commands and style definitions are in settings.sty.
+\usepackage{settings}
+
+% If you need to further customise your biblatex setup e.g. with \DeclareFieldFormat etc please add them here AFTER loading settings.sty. For example, to remove the default "[Online] Available:" prefix before URLs when using the IEEE style:
+\DefineBibliographyStrings{english}{url={\textsc{url}}}
+
+%% Only needed if you want a Publication List
+% \addbibresource{own-bib.bib}
+%% Add your newly separated bib files
+\addbibresource{journal_articles.bib}
+\addbibresource{work_in_progress.bib}
+\addbibresource{conference_articles.bib}
+\addbibresource{conference_presentations.bib}
+
+%% Automatically map each file to a specific keyword
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \perdatasource{journal_articles.bib}
+      \step[fieldset=keywords, fieldvalue=journal, append]
+    }
+    \map{
+      \perdatasource{work_in_progress.bib}
+      \step[fieldset=keywords, fieldvalue=wip, append]
+    }
+    \map{
+      \perdatasource{conference_articles.bib}
+      \step[fieldset=keywords, fieldvalue=conf_paper, append]
+    }
+    \map{
+      \perdatasource{conference_presentations.bib}
+      \step[fieldset=keywords, fieldvalue=conf_pres, append]
+    }
+  }
+}
+
+%% Specify your last name(s) and first name(s) (as given in the .bib) to automatically bold your own name in the publications list. 
+%% One caveat: You need to write \bibnamedelima where there's a space in your name for this to work properly; or write \bibnamedelimi if you use initials in the .bib
+% \mynames{Lim/Lian\bibnamedelima Tze}
+
+%% You can specify multiple names like this, especially if you have changed your name or if you need to highlight multiple authors. See items 6–9 in the example "Journal Articles" output.
+\mynames{Cokyasar/Taner,
+  Cokyasar/\bibnamedelimi T.}
+%% MAKE SURE THERE IS NO SPACE AFTER THE FINAL NAME IN YOUR \mynames LIST
+
+
+% Change the fonts if you want
+\ifxetexorluatex % If you're using XeLaTeX or LuaLaTeX
+  \usepackage{fontspec} 
+  %% You can use \setmainfont etc; I'm just using these font packages here because they provide OpenType fonts for use by XeLaTeX/LuaLaTeX anyway
+  \usepackage[p,osf,swashQ]{cochineal}
+  \usepackage[medium,bold]{cabin}
+  \usepackage[varqu,varl,scale=0.9]{zi4}
+\else % If you're using pdfLaTeX or latex
+  \usepackage[T1]{fontenc}
+  \usepackage[p,osf,swashQ]{cochineal}
+  \usepackage{cabin}
+  \usepackage[varqu,varl,scale=0.9]{zi4}
+\fi
+
+% Change the page margins if you want
+% \geometry{left=1cm,right=1cm,top=1.5cm,bottom=1.5cm}
+
+% Change the colours if you want
+\definecolor{SwishLineColour}{HTML}{000000}
+% \definecolor{MarkerColour}{HTML}{0000CC}
+\definecolor{MarkerColour}{HTML}{000000}
+
+% Change the item prefix marker if you want
+\prefixmarker{$\bullet$}
+
+%% Photo is only shown if "fullonly" is included
+\includecomment{fullonly}
+% \excludecomment{fullonly}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\leftheader{%
+\centering
+  % {\noindent\makebox[\linewidth]{\rule{\linewidth}{0.2pt}}
+  
+  \LARGE\bfseries\sffamily\Huge{Taner Cokyasar}
+
+  % \noindent\makebox[\linewidth]{\rule{\linewidth}{0.2pt}}}
+  \medskip\small
+
+  \makefield{\faEnvelope[regular]}{\texttt{9700 S. Cass Ave. Lemont, IL 60439}}
+
+  
+  \makefield{\faEnvelope[regular]}{\href{mailto:tanercokyasar@gmail.com}{\texttt{tcokyasar@anl.gov}}}
+  \makefield{\faGlobe}{\url{http://tanercokyasar.com/}}
+  \makefield{\faPhone}{(706) 308-1492}
+    
+
+  %% Next line
+  \makefield{\faOrcid}{\href{https://orcid.org/0000-0001-9687-6725}{\texttt{0000-0001-9687-6725}}}
+  \makefield{\faGoogle}{\href{https://scholar.google.com/citations?user=rZDwSd0AAAAJ&hl=en&oi=ao}{\texttt{Scholar}}}
+  % \makefield{\faGithub}{\href{https://github.com/tcokyasar44}{\texttt{tcokyasar44}}}
+  % \makefield{\faGitlab}{\href{https://gitlab.com/tcokyasar}{\texttt{tcokyasar}}}
+  \makefield{\faLinkedin}{\href{https://www.linkedin.com/in/taner-cokyasar/}{\texttt{taner-cokyasar}}}
+  % \makefield{\faTwitter}{\href{https://twitter.com/tanercokyasar}{\texttt{tanercokyasar}}}
+  % \makefield{}{\textbf{Visa Status:} U.S. Permanent Resident}
+  
+
+  % You can use a tabular here if you want to line up the fields.
+}
+
+
+\rightheader{~}
+\begin{fullonly}
+% \photo[r]{photo}
+\photoscale{0.13}
+\end{fullonly}
+
+\usepackage{datetime}
+\usepackage{lastpage}
+\usepackage{fancyhdr} 
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy} 
+% \fancyfoot[L]{\scshape \large November 2025}
+\fancyfoot[L]{\scshape \large \monthname\ \the\year}
+\fancyfoot[C]{\scshape \large Taner Cokyasar ~~~·~~~ Curriculum Vitae}
+\fancyfoot[R]{\scshape \large Page \thepage \hspace{1pt} of \pageref{LastPage}}
+
+\AtEveryCitekey{\clearfield{extradate}}
+\AtEveryBibitem{\clearfield{extradate}}
+
+\makeatletter   
+\newcommand\entryx[1][]{%
+    \@nextentry%
+    \bgroup\gdef\@beforespace{\subrubricbeforespace}%
+    \gdef\@nextentry{\\\par}\@key{#1}%
+    \egroup% 
+    \@@key&\hspace*{-3ex}\color{MarkerColour!80!black}\relscale{.8}\faBook\hspace*{0.5ex}&}
+\makeatother
+
+\begin{document}
+\makeheaders[c]
+  
+\makerubric{education}
+\makerubric{employment}
+\makerubric{awards}
+\makerubric{projects}
+\input{publications}
+\input{presentations}
+\makerubric{membership}
+\makerubric{teaching}
+\makerubric{advising}
+\makerubric{skills}
+
+% \makerubric{referee}
+% \input{referee-full}
+
+\end{document}
