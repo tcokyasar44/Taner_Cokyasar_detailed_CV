@@ -1,0 +1,85 @@
+%% ===================================================================
+%% AT A GLANCE (page 1)
+%% Numbers here are hand-maintained. Source of truth for every number is
+%% Tenure-Track_Activity_Tracker.xlsx (OneDrive). See PROFILE_SYNC.md.
+%% Last reconciled: 2026-10-07 (Google Scholar read the same day).
+%% Co-authors/institutions: method and lists in PROFILE_SYNC.md, section 5.
+%% ===================================================================
+\newcommand{\glancestat}[3]{%
+  {\leavevmode\Large\bfseries\sffamily\color{MarkerColour}#1\par}\vspace{1pt}%
+  {\small #2\par}%
+  {\footnotesize\color{black!60}#3}}
+\newcommand{\glancestep}[3]{%
+  {\leavevmode\bfseries\sffamily\color{MarkerColour}#1\par}\vspace{1pt}%
+  {\footnotesize #2\par}%
+  {\footnotesize\color{black!60}#3}}
+\newcommand{\glancearrow}{\color{black!45}$\rightarrow$}
+\newcommand{\glancerule}{\par\vspace{5pt}{\color{black!25}\hrule height 0.4pt}\vspace{6pt}}
+\newcommand{\glancelabel}[1]{\textcolor{MarkerColour}{\textsc{\small #1}}}
+\newcommand{\gb}{\hangindent=0.9em\hangafter=1\textbullet~}
+
+\makerubrichead{At a Glance}
+
+{\setlength{\parindent}{0pt}\setlength{\tabcolsep}{3pt}
+Operations researcher building large-scale optimization models and algorithms for transportation,
+logistics, and energy systems, including EV charging and fleet electrification, transit, freight,
+drone delivery, and shared mobility. Seven years at Argonne National Laboratory turning these
+methods into national- and metro-scale studies; now directing the ATLAS Lab at Texas A\&M University.
+
+\glancerule
+
+%% ---- Career path --------------------------------------------------
+\noindent\begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}X c >{\centering\arraybackslash}X c >{\centering\arraybackslash}X c >{\centering\arraybackslash}X@{}}
+\glancestep{2020}{Ph.D., Industrial Engineering}{Univ. of Tennessee} &
+\glancearrow &
+\glancestep{2019--2026}{Intern $\rightarrow$ Comp. Transp. Engineer}{Argonne National Lab.} &
+\glancearrow &
+\glancestep{2021--2022}{Asst. Prof., Industrial Eng.}{Tarsus University} &
+\glancearrow &
+\glancestep{2026--present}{Asst. Prof., ETID}{Texas A\&M University} \\
+\end{tabularx}
+
+\glancerule
+
+%% ---- Headline numbers ---------------------------------------------
+\noindent\begin{tabularx}{\textwidth}{@{}*{5}{>{\centering\arraybackslash}X}@{}}
+\glancestat{\$605K}{funding as PI}{4 DOE awards} &
+\glancestat{Area Editor}{\textit{The Engineering Economist}}{since 2025} &
+\glancestat{20}{journal articles}{+ 15 conf. papers} &
+\glancestat{15}{under review}{6 journal + 9 conf.} &
+\glancestat{524}{citations}{h-index 13, i10 14} \\ \noalign{\vskip 9pt}
+\glancestat{65}{unique co-authors}{across all papers} &
+\glancestat{17}{institutions}{across all papers} &
+\glancestat{14}{students mentored}{2 Ph.D. co-advised} &
+\glancestat{52}{talks, posters, panels}{since 2018} &
+\glancestat{78}{peer reviews}{for 16 venues} \\
+\end{tabularx}
+
+\glancerule
+
+%% ---- Highlights by area -------------------------------------------
+{\small
+\renewcommand{\arraystretch}{1.1}
+\noindent\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.5cm} >{\raggedright\arraybackslash}X@{}}
+\glancelabel{Research \&\newline Funding} &
+\gb PI on four DOE awards through Argonne (\$605K)\par
+\gb Journals include \textit{Transportation Research Part B} (2) and \textit{Part C} (5),
+  \textit{EJOR} (2), \textit{IISE Transactions}, \textit{Computers \& Operations Research}\\[3pt]
+\glancelabel{Mentoring \&\newline Teaching} &
+\gb Ph.D. chair (Texas A\&M ISEN); co-advised 2 Ph.D. dissertations (UIC); mentees from 8
+  universities, now at Uber, NetJets, Starbucks, Wells Fargo, and Plasman\par
+\gb IDIS 450 \textit{Analytics for Distribution Operations}, 97 students (Fall 2026);
+  6 earlier course offerings in the U.S. and Türkiye\\[3pt]
+\glancelabel{Leadership \&\newline Service} &
+\gb President, IISE Engineering Economy Division (2025--2027); Area Editor,
+  \textit{The Engineering Economist} (2025--present)\par
+\gb Track chair, IISE Annual Meeting (2023--2026), EUSPN, and Mobi-SPC; session chair, IISE and
+  INFORMS 2026; invited panelist, IISE 2026; 2 ETID faculty search committees\\[3pt]
+\glancelabel{Selected\newline Honors} &
+\gb Impact Argonne Award (2024) \quad\textbullet~IISE Best Track Paper Award (2018)\par
+\gb E.J. Sierleja Memorial Fellowship, IISE (2019--20) \quad\textbullet~Extraordinary Professional
+  Promise Award, Univ. of Tennessee (2018)\\
+\end{tabularx}}
+}
+
+\clearpage

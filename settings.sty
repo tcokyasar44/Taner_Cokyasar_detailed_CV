@@ -32,7 +32,7 @@
 
 \newcommand{\smallcaps}[1]{\textsc{\lowercase{#1}}}
 
-\RequirePackage[a4paper,nohead,nofoot,hmargin=2.25cm,vmargin=2cm]{geometry}
+\RequirePackage[letterpaper,nohead,nofoot,hmargin=2.25cm,vmargin=2cm]{geometry}
 \RequirePackage{relsize}
 \RequirePackage[dvipsnames,svgnames]{xcolor}
 \RequirePackage{tikz}
@@ -48,18 +48,30 @@
 
 \RequirePackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
-   \node[shape=circle,text=white,fill=MarkerColour!80!black,font=\sffamily\scriptsize\bfseries,inner sep=1pt,text height=1.35ex,minimum width=1.2em,text centered] (char) {#1};}}
+   \node[shape=circle,text=white,fill=MarkerColour,font=\sffamily\scriptsize\bfseries,inner sep=1pt,text height=1.35ex,minimum width=1.2em,text centered] (char) {#1};}}
    
-\newcounter{bibitem}
-\AtBeginBibliography{\setcounter{bibitem}{1}}
+%% Reverse (count-down) numbering: each list starts at its total, so the top
+%% number is the count. Totals are saved to the .aux file, so the numbers are
+%% right from the second LaTeX pass on (Overleaf/latexmk rerun automatically).
+\newcounter{bibitem}% number shown
+\newcounter{bibseen}% items printed so far in the current list
+\newcounter{biblist}% index of the current \printbibliography
+\AtBeginBibliography{%
+  \stepcounter{biblist}\setcounter{bibseen}{0}%
+  \ifcsundef{tcbibtotal\the\value{biblist}}%
+    {\setcounter{bibitem}{0}}%
+    {\setcounter{bibitem}{\csuse{tcbibtotal\the\value{biblist}}}}}
+\newcommand*{\tc@countbibitem}{%
+  \stepcounter{bibseen}%
+  \immediate\write\@auxout{\noexpand\expandafter\noexpand\gdef\noexpand\csname tcbibtotal\the\value{biblist}\noexpand\endcsname{\the\value{bibseen}}}}
 \iffieldformatundef{labelnumberwidth}{%
   % if author-year style
-  \AtEveryBibitem{\makebox[2.5em][l]{\circled{\thebibitem}\stepcounter{bibitem}}}%
+  \AtEveryBibitem{\tc@countbibitem\makebox[2.5em][l]{\circled{\thebibitem}\addtocounter{bibitem}{-1}}}%
 }{%
   % if numeric style
   \DeclareFieldFormat{labelnumberwidth}{\makebox[2em][l]{\circled{\thebibitem}}}%
   \setlength{\biblabelsep}{0pt}%
-  \AtEveryBibitem{\stepcounter{bibitem}}%
+  \AtEveryBibitem{\tc@countbibitem\addtocounter{bibitem}{-1}}%
 }
 \AtEveryBibitem{\iffieldundef{doi}{}{\clearfield{url}}}
 
@@ -68,10 +80,10 @@
 \setlength{\bibhang}{2.5em}
 \RequirePackage{xpatch}
 \xpretofieldformat{doi}
-  {\textcolor{MarkerColour!80!black}{\scriptsize\faLink}}
+  {\textcolor{MarkerColour}{\scriptsize\faLink}}
   {}{}
 \xpretofieldformat{url}
-  {\textcolor{MarkerColour!80!black}{\scriptsize\faLink}}
+  {\textcolor{MarkerColour}{\scriptsize\faLink}}
   {}{}
 
 \headerscale{1}
@@ -84,8 +96,8 @@
 \setlength{\subrubricbeforespace}{-1pt}
 \def\@@rubrichead#1{%
   \begin{tikzpicture}[baseline]%\
-  \shade[left color=SwishLineColour!60!white, right color=white] rectangle (\@almosttextwidth,2.5pt);
-  \node[font={\@rubricfont},inner sep=0pt,text ragged,anchor=south west,text depth=.5ex,text height=1.5ex] at (1pt,2pt) {#1};
+  \shade[left color=SwishLineColour, right color=white] rectangle (\@almosttextwidth,2.5pt);
+  \node[font={\@rubricfont},text=MarkerColour,inner sep=0pt,text ragged,anchor=south west,text depth=.5ex,text height=1.5ex] at (1pt,2pt) {#1};
   \end{tikzpicture}%
   \vspace\rubricspace%
 }
@@ -94,7 +106,7 @@
 \subrubricalignment{l}
 
 \newcommand{\makefield}[2]{\makebox[1.5em]
-{\color{MarkerColour!80!black}#1} #2\hspace{2em}}
+{\color{MarkerColour}#1} #2\hspace{2em}}
 
 \keyalignment{r}
 \rubricalignment{l}
@@ -106,7 +118,7 @@
 
 \prefix{%
   \hspace*{-3ex}
-  \color{MarkerColour!80!black}\@prefixmarker%
+  \color{MarkerColour}\@prefixmarker%
   \hspace*{0.5ex}%
 }
 
@@ -121,7 +133,20 @@
 \RequirePackage{pgffor}
 \newcommand{\mynames}[1]{\def\my@namelist{#1}}
 \newtoggle{boldname}
+%% --- Mentee underlining (list set with \mymentees in TC_resume.tex) ---
+\def\my@menteelist{}
+\newcommand{\mymentees}[1]{\def\my@menteelist{#1}}
+\newtoggle{menteename}
+\newcommand*{\my@checkmentee}{%
+  \global\togglefalse{menteename}%
+  \ifdefempty{\my@menteelist}{}{%
+    \foreach \my@mfam in \my@menteelist {%
+      \ifdefstrequal{\namepartfamily}{\my@mfam}{\global\toggletrue{menteename}}{}%
+    }}}
+\newcommand*{\my@mentee}[1]{\iftoggle{menteename}{\underline{#1}}{#1}}
+
 \renewcommand*{\mkbibnamefamily}[1]{%
+  \my@checkmentee
   \global\togglefalse{boldname}%
   \foreach \my@fname / \my@gname in \my@namelist {%
     \ifboolexpr{ test {\ifdefstrequal{\namepartfamily}{\my@fname}}
@@ -129,10 +154,11 @@
                  test {\ifdefstrequal{\namepartgiven}{\my@gname}}}
       {\global\toggletrue{boldname}}{}%
   }%
-  \iftoggle{boldname}{\textbf{#1\iffieldequalstr{usera}{corresp}{\textsuperscript{*}}{}}}{#1}%
+  \my@mentee{\iftoggle{boldname}{\textbf{#1\iffieldequalstr{usera}{corresp}{\textsuperscript{*}}{}}}{#1}}%
 }
 
 \renewcommand*{\mkbibnamegiven}[1]{%
+  \my@checkmentee
   \global\togglefalse{boldname}%
   \foreach \my@fname / \my@gname in \my@namelist{%
     \ifboolexpr{ test {\ifdefstrequal{\namepartfamily}{\my@fname}}
@@ -140,7 +166,7 @@
                  test {\ifdefstrequal{\namepartgiven}{\my@gname}}}
       {\global\toggletrue{boldname}\breakforeach}{}%
   }%
-  \iftoggle{boldname}{\textbf{#1}}{#1}%
+  \my@mentee{\iftoggle{boldname}{\textbf{#1}}{#1}}%
 }
 
 

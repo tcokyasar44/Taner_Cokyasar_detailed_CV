@@ -11,7 +11,7 @@
 % \nocite{*}
 % \printbibliography[heading={subbibliography},title={In Progress and Submitted Manuscripts},type=unpublished]
 % \nocite{*}
-% \printbibliography[heading={subbibliography},title={Conference Papers},type=manual]
+% \printbibliography[heading={subbibliography},title={Conference Papers (\textsuperscript{*}Corresponding Author)},type=manual]
 % \vspace{0.2cm}
 % \nocite{*}
 % \printbibliography[heading={subbibliography},title={Conference Presentations},type=misc]
@@ -25,7 +25,7 @@
 \nocite{*}
 
 %% Filter bibliographies by the keyword assigned in the sourcemap
-\printbibliography[heading={subbibliography},title={Journal Articles (\textsuperscript{*}Corresponding Author)},keyword=journal]
+\printbibliography[heading={subbibliography},title={Journal Articles (\textsuperscript{*}Corresponding Author; \underline{underline}: mentored student)},keyword=journal]
 \vspace{-0.1cm}
 
 \printbibliography[heading={subbibliography},title={In Progress and Submitted Manuscripts},keyword=wip]
@@ -33,5 +33,8 @@
 \printbibliography[heading={subbibliography},title={Conference Papers},keyword=conf_paper]
 \vspace{0.2cm}
 
-\printbibliography[heading={subbibliography},title={Conference Presentations},keyword=conf_pres]
+\printbibliography[heading={subbibliography},title={Invited Talks and Panels},keyword=invited]
+\vspace{0.2cm}
+
+\printbibliography[heading={subbibliography},title={Conference Presentations},keyword=conf_pres,notkeyword=invited]
 \vspace{-0.1cm}
